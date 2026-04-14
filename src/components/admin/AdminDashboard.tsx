@@ -15,6 +15,15 @@ import type {
   Restaurant,
 } from "@/types/database";
 
+type RawOrderItemRow = {
+  id: string;
+  order_id: string;
+  menu_item_id: string;
+  quantity: number;
+  price: number;
+  menu_item: { name: string }[] | { name: string } | null;
+};
+
 type Props = {
   userId: string;
   initialRestaurant: Restaurant | null;
@@ -117,7 +126,20 @@ export default function AdminDashboard({ userId, initialRestaurant }: Props) {
       return;
     }
 
-    const grouped = ((orderItemsData as OrderItem[]) ?? []).reduce(
+    const normalizedOrderItems: OrderItem[] = ((orderItemsData as RawOrderItemRow[]) ?? []).map(
+      (item) => ({
+        id: item.id,
+        order_id: item.order_id,
+        menu_item_id: item.menu_item_id,
+        quantity: item.quantity,
+        price: item.price,
+        menu_item: Array.isArray(item.menu_item)
+          ? (item.menu_item[0] ?? null)
+          : (item.menu_item ?? null),
+      }),
+    );
+
+    const grouped = normalizedOrderItems.reduce(
       (acc: Record<string, OrderItem[]>, item) => {
         acc[item.order_id] = [...(acc[item.order_id] ?? []), item];
         return acc;
