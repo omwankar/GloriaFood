@@ -9,6 +9,25 @@ const nextConfig: NextConfig = {
       },
     ],
   },
+  async headers() {
+    return [
+      {
+        source: "/(.*)",
+        headers: [
+          // Allow storefront to render inside external websites (iframe/widget).
+          {
+            key: "Content-Security-Policy",
+            value: "frame-ancestors *;",
+          },
+          // Ensure old frame-blocking headers are not applied.
+          {
+            key: "X-Frame-Options",
+            value: "ALLOWALL",
+          },
+        ],
+      },
+    ];
+  },
 };
 
 export default nextConfig;
