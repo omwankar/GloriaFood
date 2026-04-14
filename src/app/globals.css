@@ -1,8 +1,8 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #090312;
+  --foreground: #f5edff;
 }
 
 @theme inline {
@@ -20,7 +20,50 @@
 }
 
 body {
-  background: var(--background);
+  background:
+    radial-gradient(circle at 15% 15%, #2a1055 0%, transparent 35%),
+    radial-gradient(circle at 85% 10%, #1f0b44 0%, transparent 30%),
+    linear-gradient(160deg, #090312 0%, #120523 45%, #1a0833 100%);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-geist-sans), Arial, Helvetica, sans-serif;
+}
+
+/* Purple dark theme overrides for existing utility classes */
+.bg-white {
+  background-color: rgba(26, 12, 48, 0.92) !important;
+}
+
+.bg-zinc-50,
+.bg-zinc-100 {
+  background-color: rgba(36, 16, 68, 0.9) !important;
+}
+
+.bg-zinc-900 {
+  background: linear-gradient(135deg, #7e22ce 0%, #5b21b6 100%) !important;
+}
+
+.text-zinc-900,
+.text-zinc-800,
+.text-zinc-700 {
+  color: #f8f2ff !important;
+}
+
+.text-zinc-600,
+.text-zinc-500 {
+  color: #d8c9f5 !important;
+}
+
+.border-zinc-300,
+.border-zinc-200 {
+  border-color: rgba(183, 143, 255, 0.35) !important;
+}
+
+.hover\:bg-zinc-50:hover,
+.hover\:bg-zinc-100:hover,
+.hover\:bg-zinc-700:hover {
+  background-color: rgba(87, 43, 152, 0.9) !important;
+}
+
+.shadow-sm {
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35) !important;
 }
